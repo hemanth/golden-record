@@ -1,0 +1,28 @@
+# Voyager Golden Record · 3D 24k Gold Disc & Sounds of Earth (1977)
+
+> Interactive 3D NASA Voyager Golden Record at 16⅔ RPM (https://h3manth.com/fun/golden-record/) featuring tactile stylus grab/drop cueing, direct-drive platter braking & varispeed pitch shifting, all 27 *Music from Earth* works across 19 countries, *Greetings in 55 Languages*, all 19 *Sounds of Earth*, and Frank Drake's photo-etched 24k gold protective cover plate.
+
+## Corpus & Physical Telemetry
+
+- **Spacecraft**: Voyager 1 & Voyager 2 (launched August–September 1977, committee chaired by Carl Sagan)
+- **Turntable Physics**: 16⅔ RPM (`3.6 s` per revolution), 305 mm (12-inch) 24-karat gold-plated copper disc
+- **Side 1 — Music from Earth (`27` grooves across `19` countries)**: Germany, Java, Senegal, Zaire, Australia, Mexico, United States, New Guinea, Japan, Austria, Georgia, Peru, Azerbaijan, Russia, Bulgaria, United Kingdom, Solomon Islands, China, India
+- **Side 2 — Greetings & Sounds of Earth (`21` grooves)**: Greetings in 55 Languages, UN Greetings & Whale Songs, plus all 19 NASA biosphere & human civilization soundscapes
+- **Protective Cover Plate (`6` Frank Drake diagrams)**: Stylus elevation & 16⅔ RPM binary period, video scan waveform, 14-pulsar solar map, and the hydrogen hyperfine transition (`1420.405 MHz` / `0.704 ns`)
+
+## Agent & HTTP API Endpoints
+
+- **Track Search / Filter**: `GET https://h3manth.com/fun/golden-record/api/tracks?q=<query>&side=music|sounds&country=<country>&limit=20`
+- **Single Groove Lookup**: `GET https://h3manth.com/fun/golden-record/api/track?id=<track-id-or-code>` (e.g. `?id=01`, `?id=26`, `?id=S01`, `?id=music-27-beethoven-cavatina`)
+- **Cover Plate Diagrams**: `GET https://h3manth.com/fun/golden-record/api/diagrams`
+- **Corpus Telemetry**: `GET https://h3manth.com/fun/golden-record/api/stats`
+- **Full Static Dataset**: `GET https://h3manth.com/fun/golden-record/data/golden-record.json`
+- **OpenAPI 3.1 Specification**: `GET https://h3manth.com/fun/golden-record/openapi.json`
+- **Complete Groove Manifest**: `GET https://h3manth.com/fun/golden-record/llms-full.txt`
+
+## In-Browser WebMCP Tools (`navigator.modelContext`)
+
+- `search_golden_record({ query, side, country, limit })` — Filter all 48 grooves by country, composer, title, or LP side
+- `play_golden_record_groove({ id, intraBandRatio })` — Drop the 3D diamond stylus onto any groove and start 16⅔ RPM playback
+- `set_plate_side({ side })` — Flip between `"music"` (Side 1), `"sounds"` (Side 2), and `"cover"` (Frank Drake cover plate)
+- `park_stylus()` — Lift the tonearm and park it on the sculpted U-cradle rest post

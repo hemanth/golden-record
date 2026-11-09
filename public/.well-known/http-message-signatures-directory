@@ -1,0 +1,12 @@
+{
+  "keys": [
+    {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "bHIuuTyB4Vc5SlvQb5Yqgl1GQjN4a3SR09IFrSo9Jww",
+      "kid": "golden-record-ed25519-1",
+      "use": "sig",
+      "alg": "Ed25519"
+    }
+  ]
+}

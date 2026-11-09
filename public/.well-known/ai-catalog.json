@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "name": "Voyager Golden Record · 1977",
+  "description": "Interactive 3D 24k gold NASA Voyager Golden Record turntable and structured archive of all 48 interstellar audio grooves and 6 Frank Drake cover diagrams.",
+  "url": "https://h3manth.com/fun/golden-record/",
+  "resources": [
+    {
+      "type": "llms-txt",
+      "url": "https://h3manth.com/fun/golden-record/llms.txt",
+      "description": "Structured overview and API guide for autonomous agents"
+    },
+    {
+      "type": "openapi",
+      "url": "https://h3manth.com/fun/golden-record/openapi.json",
+      "description": "OpenAPI 3.1 specification for Golden Record groove & cover diagram endpoints"
+    },
+    {
+      "type": "mcp-server-card",
+      "url": "https://h3manth.com/fun/golden-record/.well-known/mcp/server-card.json",
+      "description": "SEP-1649 MCP Server Card"
+    },
+    {
+      "type": "a2a-agent-card",
+      "url": "https://h3manth.com/fun/golden-record/.well-known/agent-card.json",
+      "description": "A2A v1.0.0 Agent Card"
+    },
+    {
+      "type": "agent-skills",
+      "url": "https://h3manth.com/fun/golden-record/.well-known/agent-skills/index.json",
+      "description": "Agent Skills RFC v0.2.0 manifest"
+    }
+  ]
+}

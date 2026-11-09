@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agentskills.io/schemas/index/v0.2.0.json",
+  "version": "0.2.0",
+  "skills": [
+    {
+      "name": "golden-record-archive",
+      "type": "skill-md",
+      "description": "Query and control NASA's 1977 Voyager Golden Record across all 27 Music from Earth works (19 countries), 55 World Greetings, 19 Sounds of Earth, and 6 Frank Drake cover diagrams.",
+      "url": "https://h3manth.com/fun/golden-record/.well-known/agent-skills/golden-record-archive/SKILL.md",
+      "entrypoint": "/fun/golden-record/.well-known/agent-skills/golden-record-archive/SKILL.md",
+      "sha256": "2ab95425345836e806cca0d3c43a68a0f0629aae65d7b45fc4da06fc44acf2c4"
+    }
+  ]
+}

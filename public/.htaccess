@@ -1,0 +1,64 @@
+Options -Indexes
+
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+  Header set Cross-Origin-Resource-Policy "cross-origin"
+  Header set content-signal "ai-train=yes, search=yes, ai-input=yes"
+  Header append Vary "Accept"
+  Header add Link "</fun/golden-record/.well-known/api-catalog>; rel=\"api-catalog\"; type=\"application/linkset+json\", </fun/golden-record/.well-known/agent-skills/index.json>; rel=\"service-desc\"; type=\"application/json\", </fun/golden-record/.well-known/mcp/server-card.json>; rel=\"describedby\"; type=\"application/json\", </fun/golden-record/.well-known/agent-card.json>; rel=\"describedby\"; type=\"application/json\", </fun/golden-record/llms.txt>; rel=\"describedby\"; type=\"text/plain\", </fun/golden-record/openapi.json>; rel=\"service-desc\"; type=\"application/json\", </fun/golden-record/.well-known/ai-catalog.json>; rel=\"ai-catalog\"; type=\"application/json\""
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /fun/golden-record/
+
+  # Markdown content negotiation for agents requesting Accept: text/markdown
+  RewriteCond %{REQUEST_URI} ^/fun/golden-record/?$
+  RewriteCond %{HTTP_ACCEPT} text/markdown [NC]
+  RewriteRule ^$ api.php?action=markdown [QSA,L]
+
+  # JSON API routes
+  RewriteRule ^api/tracks/?$ api.php?action=tracks [QSA,L]
+  RewriteRule ^api/track/?$ api.php?action=track [QSA,L]
+  RewriteRule ^api/diagrams/?$ api.php?action=diagrams [QSA,L]
+  RewriteRule ^api/stats/?$ api.php?action=stats [QSA,L]
+
+  # RFC 9727 API catalog
+  RewriteRule ^\.well-known/api-catalog$ api-catalog.json [L]
+</IfModule>
+
+<Files "llms.txt">
+  ForceType "text/plain; charset=utf-8"
+</Files>
+
+<Files "llms-full.txt">
+  ForceType "text/plain; charset=utf-8"
+</Files>
+
+<Files "auth.md">
+  ForceType "text/markdown; charset=utf-8"
+</Files>
+
+<Files "api-catalog.json">
+  ForceType "application/linkset+json; charset=utf-8"
+</Files>
+
+<Files "agent-card.json">
+  ForceType "application/json; charset=utf-8"
+</Files>
+
+<Files "server-card.json">
+  ForceType "application/json; charset=utf-8"
+</Files>
+
+<Files "openapi.json">
+  ForceType "application/json; charset=utf-8"
+</Files>
+
+<Files "http-message-signatures-directory">
+  ForceType "application/json; charset=utf-8"
+</Files>
+
+<Files "oauth-protected-resource">
+  ForceType "application/json; charset=utf-8"
+</Files>

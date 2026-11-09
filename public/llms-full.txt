@@ -1,0 +1,91 @@
+# Voyager Golden Record · 3D 24k Gold Disc & Sounds of Earth (1977)
+
+> Interactive 3D NASA Voyager Golden Record at 16⅔ RPM (https://h3manth.com/fun/golden-record/) featuring tactile stylus grab/drop cueing, direct-drive platter braking & varispeed pitch shifting, all 27 *Music from Earth* works across 19 countries, *Greetings in 55 Languages*, all 19 *Sounds of Earth*, and Frank Drake's photo-etched 24k gold protective cover plate.
+
+## Corpus & Physical Telemetry
+
+- **Spacecraft**: Voyager 1 & Voyager 2 (launched August–September 1977, committee chaired by Carl Sagan)
+- **Turntable Physics**: 16⅔ RPM (`3.6 s` per revolution), 305 mm (12-inch) 24-karat gold-plated copper disc
+- **Side 1 — Music from Earth (`27` grooves across `19` countries)**: Germany, Java, Senegal, Zaire, Australia, Mexico, United States, New Guinea, Japan, Austria, Georgia, Peru, Azerbaijan, Russia, Bulgaria, United Kingdom, Solomon Islands, China, India
+- **Side 2 — Greetings & Sounds of Earth (`21` grooves)**: Greetings in 55 Languages, UN Greetings & Whale Songs, plus all 19 NASA biosphere & human civilization soundscapes
+- **Protective Cover Plate (`6` Frank Drake diagrams)**: Stylus elevation & 16⅔ RPM binary period, video scan waveform, 14-pulsar solar map, and the hydrogen hyperfine transition (`1420.405 MHz` / `0.704 ns`)
+
+## Agent & HTTP API Endpoints
+
+- **Track Search / Filter**: `GET https://h3manth.com/fun/golden-record/api/tracks?q=<query>&side=music|sounds&country=<country>&limit=20`
+- **Single Groove Lookup**: `GET https://h3manth.com/fun/golden-record/api/track?id=<track-id-or-code>` (e.g. `?id=01`, `?id=26`, `?id=S01`, `?id=music-27-beethoven-cavatina`)
+- **Cover Plate Diagrams**: `GET https://h3manth.com/fun/golden-record/api/diagrams`
+- **Corpus Telemetry**: `GET https://h3manth.com/fun/golden-record/api/stats`
+- **Full Static Dataset**: `GET https://h3manth.com/fun/golden-record/data/golden-record.json`
+- **OpenAPI 3.1 Specification**: `GET https://h3manth.com/fun/golden-record/openapi.json`
+- **Complete Groove Manifest**: `GET https://h3manth.com/fun/golden-record/llms-full.txt`
+
+## In-Browser WebMCP Tools (`navigator.modelContext`)
+
+- `search_golden_record({ query, side, country, limit })` — Filter all 48 grooves by country, composer, title, or LP side
+- `play_golden_record_groove({ id, intraBandRatio })` — Drop the 3D diamond stylus onto any groove and start 16⅔ RPM playback
+- `set_plate_side({ side })` — Flip between `"music"` (Side 1), `"sounds"` (Side 2), and `"cover"` (Frank Drake cover plate)
+- `park_stylus()` — Lift the tonearm and park it on the sculpted U-cradle rest post
+
+## Side 1 · All 27 Music from Earth Grooves (19 Countries)
+
+- **01** (`music-01-germany-brandenburg`) — *Brandenburg Concerto No. 2 in F, I* · **Germany** · J.S. Bach · Munich Bach Orchestra, Karl Richter · `4:40` · `145 mm` groove
+- **02** (`music-02-java-puspawarna`) — *Court Gamelan, "Kinds of Flowers"* · **Java · Indonesia** · Ketawang Puspåwårnå · Rec. Robert Brown · `4:43` · `142 mm` groove
+- **03** (`music-03-senegal-percussion`) — *Senegalese Percussion (Cengunmé)* · **Senegal** · Tama & Sabar Ensemble · Rec. Charles Duvelle · `2:08` · `138 mm` groove
+- **04** (`music-04-zaire-initiation`) — *Pygmy Girls’ Initiation Song* · **Zaire · DR Congo** · Mbuti Vocal Polyphony · Rec. Colin Turnbull · `0:56` · `134 mm` groove
+- **05** (`music-05-australia-morning-star`) — *"Morning Star" and "Devil Bird"* · **Australia** · Yolngu Aborigine Songs · Rec. Sandra LeBrun Holmes · `1:26` · `131 mm` groove
+- **06** (`music-06-mexico-el-cascabel`) — *"El Cascabel"* · **Mexico** · Lorenzo Barcelata & Mariachi México · `3:14` · `127 mm` groove
+- **07** (`music-07-usa-johnny-b-goode`) — *"Johnny B. Goode"* · **United States** · Written & performed by Chuck Berry · `2:38` · `124 mm` groove
+- **08** (`music-08-new-guinea-mens-house`) — *Men’s House Song (Mariuamangɨ)* · **New Guinea** · Sepik River Flutes · Rec. Robert MacLennan · `1:20` · `120 mm` groove
+- **09** (`music-09-japan-cranes-nest`) — *Shakuhachi, "Crane’s Nest"* · **Japan** · Tsuru No Sugomori · Goro Yamaguchi · `4:51` · `117 mm` groove
+- **10** (`music-10-germany-gavotte`) — *"Gavotte en rondeaux" (Partita No. 3)* · **Germany** · J.S. Bach · Arthur Grumiaux, solo violin · `2:55` · `113 mm` groove
+- **11** (`music-11-austria-magic-flute`) — *The Magic Flute, Queen of the Night Aria* · **Austria** · W.A. Mozart · Edda Moser & Bavarian State Opera · `2:55` · `109 mm` groove
+- **12** (`music-12-georgia-tchakrulo`) — *Chorus, "Tchakrulo"* · **Georgia** · Georgian State Folk Ensemble · Radio Moscow · `2:18` · `106 mm` groove
+- **13** (`music-13-peru-panpipes`) — *Panpipes and Drum* · **Peru** · Ancash Roncadoras · Casa de la Cultura, Lima · `0:52` · `102 mm` groove
+- **14** (`music-14-usa-melancholy-blues`) — *"Melancholy Blues"* · **United States** · Louis Armstrong and his Hot Seven · `3:05` · `99 mm` groove
+- **15** (`music-15-azerbaijan-bagpipes`) — *Bagpipes (Muğam / Ugam)* · **Azerbaijan** · Balaban Duo · Recorded by Radio Moscow · `2:30` · `95 mm` groove
+- **16** (`music-16-russia-rite-of-spring`) — *Rite of Spring, Sacrificial Dance* · **Russia** · Igor Stravinsky & Columbia Symphony Orchestra · `4:35` · `92 mm` groove
+- **17** (`music-17-germany-wtc`) — *Well-Tempered Clavier II, Prelude & Fugue No. 1* · **Germany** · J.S. Bach · Glenn Gould, piano · `4:48` · `88 mm` groove
+- **18** (`music-18-germany-beethoven-5`) — *Fifth Symphony, First Movement* · **Germany** · L. van Beethoven · Philharmonia Orch., Otto Klemperer · `7:20` · `84 mm` groove
+- **19** (`music-19-bulgaria-izlel`) — *"Izlel je Delyo Hagdutin"* · **Bulgaria** · Sung by Valya Balkanska with gaida bagpipes · `4:59` · `80 mm` groove
+- **20** (`music-20-usa-navajo-chant`) — *Navajo Indians, Night Chant* · **United States · Navajo** · Yeibichai Dance · Recorded by Willard Rhodes · `0:57` · `77 mm` groove
+- **21** (`music-21-uk-fairie-round`) — *"The Fairie Round"* · **United Kingdom** · Anthony Holborne · Early Music Consort of London · `1:17` · `73 mm` groove
+- **22** (`music-22-solomon-islands-panpipes`) — *Solomon Islands Panpipes* · **Solomon Islands** · Malaita Ensemble · Solomon Islands Broadcasting · `1:12` · `70 mm` groove
+- **23** (`music-23-peru-wedding-song`) — *Peruvian Wedding Song* · **Peru** · Huancavelica Quechua Song · Rec. John Cohen · `0:38` · `66 mm` groove
+- **24** (`music-24-china-flowing-streams`) — *Ch’in, "Flowing Streams" (Liu Shui)* · **China** · Performed by Kuan P’ing-hu (Guan Pinghu) · `7:37` · `63 mm` groove
+- **25** (`music-25-india-jaat-kahan-ho`) — *Raga, "Jaat Kahan Ho"* · **India** · Raga Bhairavi · Sung by Surshri Kesar Bai Kerkar · `3:30` · `59 mm` groove
+- **26** (`music-26-usa-dark-was-the-night`) — *"Dark Was the Night"* · **United States** · Written & performed by Blind Willie Johnson · `3:15` · `55 mm` groove
+- **27** (`music-27-germany-cavatina`) — *String Quartet No. 13 in B-flat, Op. 130: Cavatina* · **Germany** · L. van Beethoven · Budapest String Quartet · `6:37` · `52 mm` groove
+
+## Side 2 · Greetings & All 19 Sounds of Earth (21 Grooves)
+
+- **01** (`greetings-55-languages`) — *Greetings to the Universe in 55 Languages* · **55 World Languages** · `3:46` · `145 mm` groove — Spoken greetings from populations across Earth in 55 ancient and modern languages.
+- **02** (`un-greetings-whale-songs`) — *UN Greetings & Humpback Whale Songs* · **United Nations & Oceans** · `4:04` · `139 mm` groove — International voices followed by songs of humpback whales off Bermuda.
+- **03** (`music-of-the-spheres`) — *Music of the Spheres* · **Earth · Bell Labs** · `0:37` · `134 mm` groove — Kepler’s Harmonices Mundi planetary orbital velocity ratios realized on synthesizer.
+- **04** (`mud-pots`) — *Mud Pots* · **Earth · Lithosphere** · `0:06` · `130 mm` groove — Geothermal steam vents bursting through volcanic mineral clay.
+- **05** (`wind-rain-surf`) — *Wind, Rain, Surf* · **Earth · Hydrosphere** · `1:38` · `125 mm` groove — Atmospheric gales, continental rainfall, and tidal ocean surf.
+- **06** (`crickets-frogs`) — *Crickets, Frogs* · **Earth · Biosphere** · `0:25` · `121 mm` groove — Nocturnal chorus of stridulating field crickets and wetland frogs.
+- **07** (`birds-hyena-elephant`) — *Birds, Hyena, Elephant* · **Earth · Savanna & Forest** · `0:58` · `116 mm` groove — Woodland birdsong, spotted hyena call, and African elephants.
+- **08** (`chimpanzee`) — *Chimpanzee* · **Earth · Primate Forest** · `0:08` · `111 mm` groove — Social pant-hoot call of humanity’s closest living evolutionary relative.
+- **09** (`wild-dog`) — *Wild Dog* · **Earth · Wilderness** · `0:26` · `107 mm` groove — Solitary wild canid howling across open night air.
+- **10** (`footsteps-heartbeat-laughter`) — *Footsteps, Heartbeat, Laughter* · **Earth · Humanity** · `0:31` · `102 mm` groove — Measured footsteps, human cardiac pulse, and warm laughter.
+- **11** (`fire-speech`) — *Fire, Speech* · **Earth · Early Hearth** · `0:09` · `98 mm` groove — Dry timber crackling in a hearth paired with early vocal speech.
+- **12** (`the-first-tools`) — *The First Tools* · **Earth · Paleolithic** · `0:15` · `93 mm` groove — Percussive strikes of hammerstone flaking sharp flint edges.
+- **13** (`tame-dog`) — *Tame Dog* · **Earth · Settlement** · `0:05` · `89 mm` groove — Domestic dog bark marking humanity’s earliest interspecies bond.
+- **14** (`herding-sheep-blacksmith-sawing`) — *Herding Sheep, Blacksmith, Sawing* · **Earth · Pastoral & Craft** · `0:56` · `85 mm` groove — Pastoral flock voices, forged iron anvil blows, and wood sawing.
+- **15** (`tractor-riveter`) — *Tractor, Riveter* · **Earth · Industry** · `0:14` · `80 mm` groove — Agricultural traction followed by rapid steel frame riveting.
+- **16** (`morse-code-ships`) — *Morse Code, Ships* · **Earth · Telegraphy** · `0:31` · `75 mm` groove — Radiotelegraph spelling 'AD ASTRA PER ASPERA' and a harbor horn.
+- **17** (`horse-and-cart`) — *Horse and Cart* · **Earth · Roads** · `0:20` · `71 mm` groove — Shod hooves and spoked carriage wheels along stone pavement.
+- **18** (`train`) — *Train* · **Earth · Steam Rail** · `0:21` · `66 mm` groove — Locomotive steam whistle, crossing bell, and steel rail rhythm.
+- **19** (`tractor-bus-auto`) — *Tractor, Bus, Auto* · **Earth · Modern Transit** · `0:40` · `62 mm` groove — Gear shifts, urban buses, and highway engines.
+- **20** (`kiss-mother-and-child`) — *Kiss, Mother and Child* · **Earth · Human Bond** · `0:25` · `57 mm` groove — A human kiss, newborn cry, and mother’s comforting voice.
+- **21** (`life-signs-pulsar`) — *Life Signs, Pulsar* · **Earth · Brainwaves & Vela Pulsar** · `0:51` · `52 mm` groove — Ann Druyan’s compressed EEG brainwave trace closing with a pulsar clock.
+
+## Engraved 24k Gold Cover Plate · 6 Frank Drake Diagrams
+
+- **Diagram I** (`plan-view`) — *16⅔ RPM Phonograph & Binary Rotation* (Upper-Left Cover Etching): Plan view of the record and stylus; dashed binary ticks specify 3.6 seconds per revolution.
+- **Diagram II** (`elevation-view`) — *Stylus Elevation & Playing Time* (Mid-Left Cover Etching): Side elevation showing the cartridge tracking from outer rim inward (~1 hour per side).
+- **Diagram III** (`pulsar-map`) — *14-Pulsar Solar Location Map* (Lower-Left Cover Etching): Fourteen rays specify binary pulse periods to galactic pulsars triangulating our Sun.
+- **Diagram IV** (`video-waveform`) — *Video Scan Waveform & Timing* (Upper-Right Cover Etching): Analog video waveform and binary ~8 ms scan-line markers for decoding recorded images.
+- **Diagram V** (`calibration-circle`) — *Raster Interlace & Calibration Circle* (Mid-Right Cover Etching): 512-line vertical raster frame and circular calibration image verifying aspect ratio.
+- **Diagram VI** (`hydrogen-atom`) — *Hydrogen-1 Hyperfine Transition* (Lower-Right Cover Etching): 21 cm proton-electron spin-flip transition providing the universal unit of time and length.

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/server-card/v1.json",
+  "name": "voyager-golden-record",
+  "version": "1.0.0",
+  "description": "Query and play all 48 grooves of NASA's 1977 Voyager Golden Record across 19 countries and Earth's biosphere via HTTP JSON API and in-browser WebMCP.",
+  "homepage": "https://h3manth.com/fun/golden-record/",
+  "transport": {
+    "type": "webmcp",
+    "endpoint": "https://h3manth.com/fun/golden-record/",
+    "openapi": "https://h3manth.com/fun/golden-record/openapi.json"
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": false
+  }
+}

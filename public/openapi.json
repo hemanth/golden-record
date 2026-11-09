@@ -1,0 +1,146 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Voyager Golden Record 3D Archive API",
+    "version": "1.0.0",
+    "description": "Query all 48 concentric grooves of NASA's 1977 Voyager Golden Record (27 Music from Earth works across 19 countries + 21 Greetings & Sounds of Earth) and all 6 Frank Drake protective cover plate diagrams."
+  },
+  "servers": [
+    {
+      "url": "https://h3manth.com/fun/golden-record"
+    }
+  ],
+  "paths": {
+    "/api/tracks": {
+      "get": {
+        "operationId": "searchGoldenRecordTracks",
+        "summary": "Search and filter all 48 Voyager Golden Record grooves",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Free-text query matching title, country, artist, summary, or band code"
+          },
+          {
+            "name": "side",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all",
+                "music",
+                "sounds"
+              ],
+              "default": "all"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by country of origin (e.g. India, Germany, Peru, Japan, Senegal)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 48,
+              "default": 48
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching Golden Record grooves",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/track": {
+      "get": {
+        "operationId": "getGoldenRecordTrack",
+        "summary": "Retrieve full metadata and groove geometry for a single band ID or code",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Groove ID or band code (e.g. 01, 26, 27, S01, music-01-bach-brandenburg)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Single Golden Record groove record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Groove ID not found"
+          }
+        }
+      }
+    },
+    "/api/diagrams": {
+      "get": {
+        "operationId": "listCoverPlateDiagrams",
+        "summary": "List all 6 Frank Drake scientific diagrams etched on the 24k gold cover plate",
+        "responses": {
+          "200": {
+            "description": "Cover plate diagram manifest",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/stats": {
+      "get": {
+        "operationId": "getGoldenRecordStats",
+        "summary": "Return physical turntable telemetry and groove/country counts",
+        "responses": {
+          "200": {
+            "description": "Golden Record summary statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

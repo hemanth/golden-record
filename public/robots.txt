@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://h3manth.com/fun/golden-record/sitemap.xml
+Content-Signal: ai-train=yes, search=yes, ai-input=yes

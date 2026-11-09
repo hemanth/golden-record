@@ -1,0 +1,37 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://h3manth.com/fun/golden-record/",
+      "service-desc": [
+        {
+          "href": "https://h3manth.com/fun/golden-record/openapi.json",
+          "type": "application/json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://h3manth.com/fun/golden-record/llms-full.txt",
+          "type": "text/plain"
+        },
+        {
+          "href": "https://h3manth.com/fun/golden-record/auth.md",
+          "type": "text/markdown"
+        }
+      ],
+      "describedby": [
+        {
+          "href": "https://h3manth.com/fun/golden-record/.well-known/agent-card.json",
+          "type": "application/json"
+        },
+        {
+          "href": "https://h3manth.com/fun/golden-record/.well-known/mcp/server-card.json",
+          "type": "application/json"
+        },
+        {
+          "href": "https://h3manth.com/fun/golden-record/llms.txt",
+          "type": "text/plain"
+        }
+      ]
+    }
+  ]
+}

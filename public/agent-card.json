@@ -1,0 +1,95 @@
+{
+  "$schema": "https://a2a-protocol.org/schemas/agent-card/v1.0.0.json",
+  "schemaVersion": "1.0.0",
+  "name": "Voyager Golden Record",
+  "description": "Interactive 3D 24k Gold NASA Voyager Golden Record (1977) with real-life stylus cueing, 16⅔ RPM platter physics, all 27 Music from Earth tracks across 19 countries, 55 World Greetings, 19 Sounds of Earth, and Frank Drake's protective cover plate.",
+  "url": "https://h3manth.com/fun/golden-record/",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "Hemanth HM",
+    "url": "https://h3manth.com"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "webmcp": true,
+    "tools": [
+      {
+        "name": "search_golden_record",
+        "description": "Search or filter all 48 NASA Voyager Golden Record grooves by country, title, artist, or LP side.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            },
+            "side": {
+              "type": "string",
+              "enum": [
+                "all",
+                "music",
+                "sounds"
+              ],
+              "default": "all"
+            },
+            "country": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "integer",
+              "default": 20
+            }
+          }
+        }
+      },
+      {
+        "name": "play_golden_record_groove",
+        "description": "Physically drop the 3D diamond stylus onto a specific Voyager Golden Record groove ID or band code and start 16⅔ RPM playback.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "intraBandRatio": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      {
+        "name": "set_plate_side",
+        "description": "Flip the 3D 24k gold disc between 'music', 'sounds', and 'cover'.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "side": {
+              "type": "string",
+              "enum": [
+                "music",
+                "sounds",
+                "cover"
+              ]
+            }
+          },
+          "required": [
+            "side"
+          ]
+        }
+      }
+    ]
+  },
+  "communication": {
+    "preferredChannel": "https",
+    "endpoints": {
+      "tracks": "https://h3manth.com/fun/golden-record/api/tracks",
+      "track": "https://h3manth.com/fun/golden-record/api/track",
+      "diagrams": "https://h3manth.com/fun/golden-record/api/diagrams",
+      "stats": "https://h3manth.com/fun/golden-record/api/stats",
+      "openapi": "https://h3manth.com/fun/golden-record/openapi.json"
+    }
+  }
+}

@@ -1,0 +1,728 @@
+:root {
+  --bg-canvas: #F6F3EC;
+  --surface-whisper: rgba(253, 252, 250, 0.86);
+  --surface-popover: rgba(253, 252, 249, 0.95);
+  --border-hairline: rgba(25, 24, 22, 0.09);
+  --ink-primary: #191816;
+  --ink-secondary: #6C6961;
+  --ink-muted: #938F86;
+
+  --pastel-sky: #DFEFF7;
+  --pastel-sky-ink: #215773;
+  --pastel-sage: #E2F1E5;
+  --pastel-sage-ink: #295C39;
+  --pastel-butter: #F8EED8;
+  --pastel-butter-ink: #7B5316;
+  --pastel-blush: #F7E3E7;
+  --pastel-blush-ink: #853242;
+
+  --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: "Geist Mono", "SF Mono", ui-monospace, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-canvas);
+  color: var(--ink-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fullscreen Viewport Stage */
+.fullscreen-stage {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--bg-canvas);
+}
+
+/* Soft desaturated pastel gallery wash behind the 3D Golden Record */
+.pastel-atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(223, 239, 247, 0.58), transparent 46%),
+    radial-gradient(circle at 84% 20%, rgba(247, 227, 231, 0.50), transparent 44%),
+    radial-gradient(circle at 22% 84%, rgba(226, 241, 229, 0.48), transparent 46%),
+    radial-gradient(circle at 80% 82%, rgba(248, 238, 216, 0.56), transparent 46%);
+}
+
+/* Fullscreen Three.js Canvas */
+.plate-canvas-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  user-select: none;
+}
+
+.plate-canvas-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Subtle Pointer Hover Chip on Desktop */
+.plate-hover-chip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px;
+  background: rgba(253, 252, 250, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-hairline);
+  border-radius: 9999px;
+  z-index: 6;
+  white-space: nowrap;
+  max-width: min(92vw, 520px);
+}
+
+.plate-hover-badge {
+  padding: 1.5px 7px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.plate-hover-title {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ink-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plate-hover-dur {
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  color: var(--ink-secondary);
+  flex-shrink: 0;
+}
+
+/* Minimalist Top Overlay */
+.hud-top {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  left: 22px;
+  right: 22px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.hud-wordmark {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink-primary);
+  opacity: 0.88;
+  transition: opacity 160ms ease;
+}
+
+.hud-wordmark:hover {
+  opacity: 1;
+}
+
+.hud-serif {
+  font-family: var(--font-serif);
+  font-size: 1.38rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.hud-mono {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-secondary);
+}
+
+.hud-controls {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-pill-group {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 2.5px;
+  border-radius: 9999px;
+  background: var(--surface-whisper);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-hairline);
+  gap: 2px;
+}
+
+/* Mobile thumb-zone switcher is hidden on desktop */
+.hud-side-mobile {
+  display: none;
+}
+
+.hud-pill {
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 9999px;
+  border: 0;
+  background: transparent;
+  color: var(--ink-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.hud-pill:hover {
+  color: var(--ink-primary);
+}
+
+.hud-pill.is-on {
+  background: var(--pastel-butter);
+  color: var(--pastel-butter-ink);
+  font-weight: 500;
+}
+
+/* Subtle Bottom Band Info HUD */
+.hud-bottom {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  pointer-events: none;
+}
+
+/* Discreet Floating Country / Groove Index Popover (closed by default) */
+.groove-popover {
+  pointer-events: auto;
+  width: min(540px, 100%);
+  max-height: min(54dvh, 380px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  background: var(--surface-popover);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border-hairline);
+  overflow: hidden;
+}
+
+.groove-popover-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px 8px;
+  border-bottom: 1px solid var(--border-hairline);
+  flex-shrink: 0;
+}
+
+.groove-popover-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.groove-side-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.mini-tab {
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 9999px;
+  border: 0;
+  background: transparent;
+  color: var(--ink-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.mini-tab.is-on {
+  background: var(--pastel-butter);
+  color: var(--pastel-butter-ink);
+  font-weight: 500;
+}
+
+.mini-close-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  border: 0;
+  background: rgba(25, 24, 22, 0.05);
+  color: var(--ink-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.mini-close-btn:hover {
+  color: var(--ink-primary);
+}
+
+.country-chip-rail {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--border-hairline);
+  flex-shrink: 0;
+}
+
+.country-chip-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.country-chip {
+  height: 25px;
+  padding: 0 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-hairline);
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--ink-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.country-chip:hover {
+  color: var(--ink-primary);
+}
+
+.country-chip.is-on {
+  background: var(--pastel-sky);
+  color: var(--pastel-sky-ink);
+  border-color: transparent;
+  font-weight: 500;
+}
+
+.groove-popover-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.groove-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink-primary);
+  transition: background-color 120ms ease;
+}
+
+.groove-row:hover {
+  background: rgba(25, 24, 22, 0.045);
+}
+
+.groove-row.is-active {
+  background: rgba(248, 238, 216, 0.68);
+}
+
+.groove-row-code {
+  padding: 2px 6.5px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+}
+
+.groove-row-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+}
+
+.groove-row-title {
+  font-size: 0.81rem;
+  font-weight: 500;
+  color: var(--ink-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.groove-row-country {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.groove-row-dur {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--ink-muted);
+}
+
+/* Subtle Bottom Band Pill (Single-row on Desktop, Spacious 2-row Editorial Card on Mobile) */
+.band-whisper {
+  pointer-events: auto;
+  position: relative;
+  width: min(540px, 100%);
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  grid-template-areas: "badge meta time actions";
+  align-items: center;
+  column-gap: 11px;
+  padding: 9px 13px 11px;
+  border-radius: 15px;
+  background: var(--surface-whisper);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-hairline);
+  overflow: hidden;
+  transition: opacity 320ms ease;
+}
+
+.band-whisper.is-calm {
+  opacity: 0.84;
+}
+
+.band-whisper:hover,
+.band-whisper.is-fresh {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .band-whisper {
+    animation: whisperIn 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .groove-popover {
+    animation: whisperIn 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@keyframes whisperIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.band-badge {
+  grid-area: badge;
+  height: 31px;
+  padding: 0 9px;
+  border-radius: 9px;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5.5px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  flex-shrink: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 140ms ease, transform 120ms ease;
+}
+
+.band-badge:hover {
+  filter: brightness(0.97);
+}
+
+.band-badge:active {
+  transform: scale(0.97);
+}
+
+.band-meta {
+  grid-area: meta;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.band-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  color: var(--ink-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.band-sub {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.band-time {
+  grid-area: time;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.band-actions {
+  grid-area: actions;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.whisper-icon-btn,
+.whisper-play-btn {
+  width: 29px;
+  height: 29px;
+  border-radius: 9999px;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 120ms ease, background-color 150ms ease;
+}
+
+.whisper-icon-btn {
+  background: transparent;
+  color: var(--ink-secondary);
+}
+
+.whisper-icon-btn:hover {
+  background: rgba(25, 24, 22, 0.05);
+  color: var(--ink-primary);
+}
+
+.whisper-play-btn:active,
+.whisper-icon-btn:active {
+  transform: scale(0.94);
+}
+
+.band-progress-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(25, 24, 22, 0.05);
+  cursor: pointer;
+}
+
+.band-progress-fill {
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+}
+
+/* =========================================================================
+   Mobile Portrait Studio Experience (<= 680px)
+   ========================================================================= */
+@media (max-width: 680px) {
+  .hud-top {
+    left: 14px;
+    right: 14px;
+    top: max(12px, env(safe-area-inset-top));
+    flex-wrap: nowrap;
+  }
+
+  .hud-mono {
+    display: none;
+  }
+
+  .hud-serif {
+    font-size: 1.32rem;
+  }
+
+  /* Move Music · 27 / Sounds · 21 / Cover into the bottom thumb zone on mobile */
+  .hud-side-desktop {
+    display: none;
+  }
+
+  .hud-side-mobile {
+    display: inline-flex;
+    padding: 3px;
+  }
+
+  .hud-pill {
+    height: 28px;
+    padding: 0 11px;
+    font-size: 0.68rem;
+  }
+
+  .plate-hover-chip {
+    display: none;
+  }
+
+  .plate-hover-chip.is-active-gesture {
+    display: inline-flex;
+  }
+
+  .hud-bottom {
+    left: 12px;
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    gap: 8px;
+  }
+
+  .groove-popover {
+    max-height: min(56dvh, 390px);
+    border-radius: 16px;
+  }
+
+  .country-chip {
+    height: 29px;
+    padding: 0 11px;
+    font-size: 0.69rem;
+  }
+
+  .groove-row {
+    padding: 9px 10px;
+  }
+
+  .groove-row-title {
+    font-size: 0.85rem;
+  }
+
+  /* Spacious 2-Row Editorial Card: full width for title & artist, zero truncation */
+  .band-whisper {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "badge time actions"
+      "meta  meta meta";
+    row-gap: 8px;
+    column-gap: 8px;
+    padding: 11px 13px 14px;
+    border-radius: 16px;
+    opacity: 0.96;
+  }
+
+  .band-badge {
+    height: 30px;
+    padding: 0 10px;
+    font-size: 0.68rem;
+  }
+
+  .band-time {
+    justify-self: end;
+    font-size: 0.66rem;
+    padding-right: 2px;
+  }
+
+  .whisper-icon-btn,
+  .whisper-play-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .band-title {
+    font-size: 1.24rem;
+    line-height: 1.16;
+  }
+
+  .band-sub {
+    margin-top: 2px;
+    font-size: 0.68rem;
+  }
+
+  .band-progress-track {
+    height: 3.5px;
+  }
+}
+
+/* Compact 320px iPhone SE guard */
+@media (max-width: 359px) {
+  .hud-pill {
+    padding: 0 8px;
+    font-size: 0.63rem;
+  }
+
+  .band-badge {
+    padding: 0 8px;
+    font-size: 0.63rem;
+  }
+
+  .band-time {
+    display: none;
+  }
+}
